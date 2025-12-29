@@ -1,0 +1,11 @@
+sources:
+  - name: raw
+    tables:
+      - name: payments
+        columns:
+          - name: total_paid_usd
+            tests:
+              - not_null
+              - dbt_utils.expression_is_true:
+                  expression: "total_paid_usd >= 0"
+

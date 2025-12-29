@@ -1,0 +1,46 @@
+version: 2
+
+sources:
+  - name: processing
+    database: DLIGHT
+    schema: PROCESSING
+    tables:
+      - name: cleaned_contracts
+      - name: cleaned_payments
+
+models:
+  - name: stg_cleaned_contracts
+    columns:
+      - name: product
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - 'Small Solar'
+                - 'Large Solar - Generation 1'
+                - 'Large Solar - Generation 2'
+                - 'PAYGO_PHONE'
+                - 'PAYGO_PORTABLE'
+      - name: sales_person_id
+        tests:
+          - not_null
+      - name: payment_frequency
+        tests:
+          - accepted_values:
+              values: ['daily', 'weekly', 'monthly','tridaily']
+      - name: perc_deposit
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "perc_deposit between 0 and 100"
+      - name: tenor_length
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "tenor_length > 0"
+
+  - name: stg_cleaned_payments
+    columns:
+      - name: total_paid
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: "total_paid >= 0"
