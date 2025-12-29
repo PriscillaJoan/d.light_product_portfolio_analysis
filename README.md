@@ -7,6 +7,7 @@ Analysis of D.Light's retail performance focusing on contract sales, payment col
 ```
 ## Project Structure
 ```
+````
 case_study/
 │
 ├── analyses/                           
@@ -41,11 +42,11 @@ case_study/
 │   ├── outlier_payments.csv            # Flagged outliers (761 rows)
 │
 ├── data/                               # Raw data files
-│   ├── bi_case_calls_combined.csv    # Original customer call records
-│   ├── bi_case_contracts_combined.csv # Contract master data
-│   ├── bi_case_payments_combined.csv   # Original payment data (with outliers)
+│   ├── bi_case_calls_combined.csv            # Original customer call records
+│   ├── bi_case_contracts_combined.csv       # Contract master data
+│   ├── bi_case_payments_combined.csv         # Original payment data (with outliers)
 │   ├── bi_case_service_tickets_combined.csv  # Original Customer service tickets
-│   ├── clean_contract_table.csv     # Cleaned contract data with imputed nulls
+│   ├── clean_contract_table.csv              # Cleaned contract data with imputed nulls
 │   └── data_dictionary.txt
 │
 ├── workbooks/                          # Analysis workbooks
@@ -56,8 +57,8 @@ case_study/
 ├── dbt_project.yml                     # dbt configuration
 ├── README.md                           # This file
 └── d.light.db                          # SQLite database
-```
-```
+````
+
 
 ## Data Quality Issues & Cleaning
 
@@ -194,5 +195,3 @@ Tableau dashboards available in `workbooks/`:
 
 ### Database
 - **d.light.db**: SQLite database containing all tables (contracts, payments_cleaned, outlier_payments)
-```
-
