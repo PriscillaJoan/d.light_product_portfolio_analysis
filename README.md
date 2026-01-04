@@ -40,17 +40,19 @@ case_study/
 ├── cleaned_data/                       # Cleaned datasets for analysis
 │   ├── cleaned_payments.csv            # Valid payment records (1.7M rows)
 │   ├── outlier_payments.csv            # Flagged outliers (761 rows)
+│   ├── cleaned_contracts.csv            # Cleaned contract data with imputed nulls and new columns
+│
 │
 ├── data/                               # Raw data files
 │   ├── bi_case_calls_combined.csv            # Original customer call records
 │   ├── bi_case_contracts_combined.csv       # Contract master data
 │   ├── bi_case_payments_combined.csv         # Original payment data (with outliers)
 │   ├── bi_case_service_tickets_combined.csv  # Original Customer service tickets
-│   ├── clean_contract_table.csv              # Cleaned contract data with imputed nulls
 │   └── data_dictionary.txt
 │
 ├── workbooks/                          # Analysis workbooks
-│   ├── sales_performance_analysis.ipynb  # Main analysis and outlier cleaning
+│   ├── cleaning_contracts.ipynb  # Main analysis and outlier cleaning for the contract csv file
+    ├── cleaning_payments.ipynb  # Cleaning for the payments csv file
 │   └── workbook.ipynb                    # Additional analysis notebook
 │
 ├── .gitignore                          # Git ignore rules
@@ -87,7 +89,8 @@ Discovered **761 outlier payment records** (0.04% of all payments) that inflated
 
 ### Resolution
 Created two datasets:
-- `payments_cleaned`: 1,715,609 valid payment records for analysis
+- `cleaned_payments`: 1,715,609 valid payment records for analysis
+- `cleaned_contracts`: Contains clean contract information with new columns
 - `outlier_payments`: 761 suspicious records flagged for investigation
 
 ### Tables
@@ -101,7 +104,7 @@ Main payment information. Use this as outliers have been handled
 - `total_paid` - Payment amount in USD
 
 
-#### `data/cleaned_contract_table.csv` 
+#### `cleaned_data/cleaned_contracts.csv` 
 Cleaned payment records with nulls removed - **USE THIS for all analysis** 
 
 **Key columns:**
@@ -114,6 +117,9 @@ Cleaned payment records with nulls removed - **USE THIS for all analysis**
 - `tenor_length` - Contract duration in days
 - `customer_gender` - Customer demographics
 - `occupation` - Customer occupation
+- `phone_number`- Customer phone number
+- `Name` - Customer name
+- `Actual household size` - Customer household sizw
 
 
 #### `outlier_payments`
@@ -131,7 +137,7 @@ Flagged suspicious payment records for investigation (761 rows)
 
 1. Clone the repository
 ```
-git clone [repository-url]
+git clone [https://github.com/PriscillaJoan/d.light_product_portfolio_analysis]
 cd case_study
 ```
 
@@ -169,7 +175,8 @@ conn = sqlite3.connect('d.light.db')
 
 1. Open Jupyter notebooks:
 ```bash
-jupyter notebook workbooks/sales_performance_analysis.ipynb
+jupyter notebook workbooks/contracts_cleaning.ipynb
+payments_cleaning.ipynb
 ```
 
 2. Run dbt models:
@@ -189,7 +196,7 @@ Tableau dashboards available in `workbooks/`:
 - Repayment ratio (actual/expected payments) per product
 - Product Quality Analysis
 
-**Important**: Ensure dashboards use `cleaned_payments` as the data source
+**Important**: Ensure dashboards use `cleaned_payments` and `cleaned_contracts` as the data source
 
 ## Files Description
 
